@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "create-react-app": "^5.0.1"
-  }
+    "create-react-app": "^5.0.1",
+    "radium": "^0.26.2"
+  },
+  "packageManager": "yarn@3.2.0"
 }
