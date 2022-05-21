@@ -1,0 +1,22 @@
+.nav ul{
+    margin: 20px 0px;
+    padding: 0;
+}
+
+.nav ul li {
+    list-style-type: none;
+    display: inline;
+    margin-right: 15px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+a {
+    text-decoration: none;
+}
+
+a.active {
+    font-weight: bold;
+    color: rgb(240, 40, 40);
+}
+

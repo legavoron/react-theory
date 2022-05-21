@@ -1,73 +1,61 @@
-import React from 'react';
-import './Car.css';
+import React from 'react'
+import classes from './Car.module.css'
+import withClass from '../hoc/withClass';
+import propTypes from 'prop-types';
+import {withRouter} from 'react-router-dom'
+
 
 class Car extends React.Component {
-   
-    // componentWillReceiveProps(nextProps) {
-    //     console.log('Car componentWillReceiveProps', nextProps);
-    // }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('Car shouldComponentUpdate', nextProps, nextState);
-        return nextProps.name.trim() !== this.props.name.trim()
+    constructor(props) {
+        super(props)
+
+        this.inputRef = React.createRef();
     }
 
-    // componentWillUpdate(nextProps, nextState) {
-    //     console.log('Car componentWillUpdate', nextProps, nextState);
-    // }
-
-    // static getDerivedStateFromProps(nextProps, previousState) {
-    //     console.log('Car getDerivedStateFromProps', nextProps, previousState);
-
-    //     return previousState
-    // }
-
-    componentDidUpdate() {
-        console.log('Car componentDidUpdate');
-    }
-
-    getSnapshotBeforeUpdate() {
-        console.log('Car getSnapshotBeforeUpdate');
-    }
-
-    componentWillUnmount() {
-        console.log('Car componentWillUnmount');
-    }
-
-    render() {
-        console.log('Car render');
-
-        if (Math.random() > 0.7) {
-            throw new Error('Car random failed')
+    componentDidMount() {
+        if(this.props.index === 0) {
+            this.inputRef.current.focus();
         }
-
-        const inputClasses = ['input'];
-
-        if (this.props.name !== '') {
-            inputClasses.push('green')
-        } else {
-            inputClasses.push('red')
-        }
-
-        if (this.props.name.length > 4) {
-            inputClasses.push('bold')
-        }
-
-
-        return (
-        <div className='Car'>
-            <h3>Car name: {this.props.name}</h3> 
-            <p>Year: <strong>{this.props.year}</strong></p>
-            <input 
-            type="text" 
-            onChange={this.props.onChangeName} 
-            value={this.props.name}
-            className={inputClasses.join(' ')}
-            />
-            <button onClick={this.props.onDelete}>Delete</button>
-        </div>
-        )
     }
+
+  render() {
+    
+    const inputClasses = [classes.input]
+
+    if (this.props.name !== '') {
+      inputClasses.push(classes.green)
+    } else {
+      inputClasses.push(classes.red)
+    }
+
+    if (this.props.name.length > 4) {
+      inputClasses.push(classes.bold)
+    }
+
+    return (
+      <React.Fragment>
+        <h3>Сar name: {this.props.name}</h3>
+        <p>Year: <strong>{this.props.year}</strong></p>
+        <input
+            ref={this.inputRef}
+          type="text"
+          onChange={this.props.onChangeName}
+          value={this.props.name}
+          className={inputClasses.join(' ')}
+        />
+        <button onClick={this.props.onDelete}>Delete</button>
+      </React.Fragment>
+    )
+  }
 }
 
-export default Car
+Car.propTypes = {
+    name: propTypes.string,
+    year: propTypes.number,
+    index: propTypes.number,
+    onChangeName: propTypes.func,
+    onDelete: propTypes.func
+  }
+
+export default withClass(Car, classes.Car)
